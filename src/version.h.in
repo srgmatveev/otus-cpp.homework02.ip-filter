@@ -1,0 +1,6 @@
+//
+// Created by sergio on 30.06.18.
+//
+
+#pragma once
+#cmakedefine PROJECT_VERSION_PATCH @PROJECT_VERSION_PATCH@
