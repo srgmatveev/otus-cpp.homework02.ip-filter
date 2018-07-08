@@ -55,7 +55,7 @@ option(BUILD_DOC "Build Documentation" ON)
 
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
-    set(BUILD_DOC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/build/docs)
+    set(BUILD_DOC_DIR ${CMAKE_CURRENT_BINARY_DIR}/build/docs)
     if(NOT EXISTS ${BUILD_DOC_DIR})
         file(MAKE_DIRECTORY ${BUILD_DOC_DIR})
     endif()

@@ -15,6 +15,7 @@ public:
     const uint get_ip_octet(int i) const;
     bool find_octets_in_ip(size_t&& octet) const;
     friend bool operator>(const ip_address& lhs,  const ip_address& rhs);
+    const std::string get_string();
     private:
     std::array<unsigned char , IP4_OCTETS_COUNT> ip;
 
@@ -24,11 +25,10 @@ class ip_addresses_pool {
 public:
     using ip_pool_vector = std::vector<ip_address>;
 
-    ip_pool_vector ip_pool;
+    ip_pool_vector ip_pool{};
 
-    explicit ip_addresses_pool() : ip_pool(ip_pool) {
+    explicit ip_addresses_pool() = default;
 
-    }
 
     void add_ip_address(std::vector<std::string> &&rhs);
 
@@ -43,6 +43,8 @@ class ip_filter {
 public:
 
     std::unique_ptr<ip_addresses_pool> pool_ptr;
+
+
 
     ip_filter() {
         pool_ptr = std::make_unique<ip_addresses_pool>();
