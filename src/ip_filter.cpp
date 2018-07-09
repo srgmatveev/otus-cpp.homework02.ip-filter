@@ -8,7 +8,7 @@
 #include "addon_functions.h"
 
 
-ip_address::ip_address(std::vector<std::string> &&vector) {
+ip_address::ip_address(std::vector<std::string>& vector) {
 
     auto &&tmp_string_vec = std::move(vector);
 
@@ -41,7 +41,7 @@ const uint ip_address::get_ip_octet(int i) const {
 }
 
 
-const std::string ip_address::get_string() {
+ std::string ip_address::get_string() {
     std::string str = std::to_string(ip.at(0))+"."+ std::to_string(ip.at(1))+
                       "."+std::to_string(ip.at(2))+"."+std::to_string(ip.at(3));
     return str;
@@ -66,7 +66,7 @@ bool operator>(const ip_address &lhs, const ip_address &rhs) {
     return lhs.ip > rhs.ip;
 }
 
-bool ip_address::find_octets_in_ip(size_t &&octet) const {
+bool ip_address::find_octets_in_ip(const size_t& octet) const {
 
 
     for ( auto &i : ip ) {
@@ -83,7 +83,7 @@ void ip_filter::read(std::istream &in) {
         for ( std::string line; std::getline(in, line); ) {
             std::vector<std::string> v = split(line, '\t');
 
-            this->pool_ptr->add_ip_address(std::move(split(v.at(0), '.')));
+            this->pool_ptr->add_ip_address(split(v.at(0), '.'));
 
         }
     }
@@ -124,7 +124,8 @@ void ip_filter::write(std::ostream &out) {
     std::copy_if(pool_ptr->ip_pool.cbegin(), pool_ptr->ip_pool.cend(),
                  std::ostream_iterator<ip_address>(std::cout, "\n"),
                  [](const ip_address &tmp_addr) {
-                     return tmp_addr.find_octets_in_ip(46);
+
+                    return tmp_addr.find_octets_in_ip(46);
                  }
     );
 
@@ -134,13 +135,13 @@ void ip_filter::write(std::ostream &out) {
 void ip_addresses_pool::add_ip_address(std::vector<std::string> &&rhs) {
 
 
-    auto &&tmp_vec = std::move(rhs);
+    auto&& tmp_vec = rhs;
 
     if (tmp_vec.size() != IP4_OCTETS_COUNT)
         throw std::invalid_argument(IP_OCTETS_COUNTS_ERROR);
 
 
-    ip_pool.emplace_back(ip_address(std::move(tmp_vec)));
+    ip_pool.emplace_back(tmp_vec);
 
 
 }

@@ -59,5 +59,6 @@ TEST_F(IP_Filter_Test, IP_Addresses_which_containes_correct_octets) {
 TEST(IP_Address_Test, IP_Address_contain_wrong_char_octets) {
 
     std::vector<std::string> testData{"10","47","b","25"};
-    ASSERT_THROW(ip_address ip_address(std::move(testData)),std::invalid_argument);
+
+    ASSERT_THROW( ip_address ipAddress(testData),std::invalid_argument);
 }

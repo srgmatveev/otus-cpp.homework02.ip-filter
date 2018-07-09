@@ -11,11 +11,11 @@ class ip_address {
 
 public:
 
-    explicit ip_address(std::vector<std::string> &&vector);
+    explicit ip_address(std::vector<std::string> &vector);
     const uint get_ip_octet(int i) const;
-    bool find_octets_in_ip(size_t&& octet) const;
+    bool find_octets_in_ip(const size_t& octet) const;
     friend bool operator>(const ip_address& lhs,  const ip_address& rhs);
-    const std::string get_string();
+    std::string get_string();
     private:
     std::array<unsigned char , IP4_OCTETS_COUNT> ip;
 
@@ -32,7 +32,7 @@ public:
 
     void add_ip_address(std::vector<std::string> &&rhs);
 
-    virtual ~ip_addresses_pool() = default;
+
 
     void sort_in_reverse_lexographic_order(ip_pool_vector&);
 
@@ -56,9 +56,6 @@ public:
     void write(std::ostream &out);
 
 
-
-
-    virtual ~ip_filter() = default;
 
 
 };
